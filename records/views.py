@@ -27,7 +27,7 @@ def add_record(request):
     return render(request, 'records/form.html', {'form': form})
 
 def edit_record(request, pk):
-    record = get_objects_or_404(Record, pk=pk)
+    record = get_object_or_404(Record, pk=pk)
     if request.method == 'POST':
         form = RecordForm(request.POST, instance=record)
         if form.is_valid():
