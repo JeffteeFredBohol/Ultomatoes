@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Record List</title>
+    <link rel="stylesheet" href="{% static 'records/style.css' %}">
+</head>
+<body>
+    <header>Record Manager</header>
+    <div class="container">
+        <h2>Records</h2>
+        <form method="get">
+            <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+            <a href="{% url 'add' %}" class="btn">Add New</a>
+        </form>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Age</th>
+                <th>Birthdate</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            {% for r in records %}
+            <tr>
+                <td>{{ r.name }}</td>
+                <td>{{ r.salary }}</td>
+                <td>{{ r.age }}</td>
+                <td>{{ r.birthdate }}</td>
+                <td>{{ r.description }}</td>
+                <td class="action-links">
+                    <a href="{% url 'edit' r.id %}">Edit</a>
+                    <a href="{% url 'delete' r.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

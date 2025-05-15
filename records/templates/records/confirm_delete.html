@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Record</title>
+    <link rel="stylesheet" href="{% static 'records/style.css %}">
+</head>
+<body>
+<header>Record Manager</header>
+<div class="container">
+    <h2>Confirm Delete</h2>
+    <p>Are you sure want to delete <strong>{{ record.name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'list' %}" class="btn">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
