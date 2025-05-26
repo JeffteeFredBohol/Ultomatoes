@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Record
 from .forms import RecordForm
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def list_records(request):
     query = request.GET.get('q')
     records = Record.objects.all()
@@ -16,6 +18,7 @@ def list_records(request):
         )
     return render(request, 'records/list.html', {"records": records})
 
+@login_required
 def add_record(request):
     if request.method =='POST':
         form = RecordForm(request.POST)
@@ -26,6 +29,7 @@ def add_record(request):
         form = RecordForm()
     return render(request, 'records/form.html', {'form': form})
 
+@login_required
 def edit_record(request, pk):
     record = get_object_or_404(Record, pk=pk)
     if request.method == 'POST':
@@ -37,6 +41,7 @@ def edit_record(request, pk):
         form = RecordForm(instance=record)
     return render(request, 'records/form.html', {'form': form})
 
+@login_required
 def delete_record(request, pk):
     record = get_object_or_404(Record, pk=pk)
     if request.method == 'POST':
